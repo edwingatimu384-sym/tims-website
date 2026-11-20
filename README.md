@@ -1,72 +1,31 @@
-# TIMS — Hybrid brand website
+# TIMS — Netlify-ready website with saved inquiries
 
-A fast, mobile-responsive, dependency-free marketing website for TIMS (launch package with AI agent prototyping). The brand is presented as a business, with Tim as the visible founder and builder.
+This version of TIMS is a static HTML/CSS/JS marketing site, configured for Netlify Forms to accept and store project inquiries in the Netlify dashboard. The old email-only inquiry handler has been replaced.
 
 ## What is included
+- `index.html` — website with an HTML inquiry form that Netlify can detect
+- `styles.css` — design
+- `script.js` — navigation, service choice, contact buttons (does not intercept the form submit)
+- `site-config.js` — public contact email and WhatsApp number (optional, but strongly advised)
+- `thank-you.html` — form-success page
+- `favicon.svg` — site icon
 
-- Responsive one-page website: home, services, featured project, approach, about, contact
-- Ten offers across business systems strategy, behavioral design, philosophical decision-making, AI agent prototyping, software, cognitive learning, education, and mental-health literacy
-- InvoiceFlow prototype link to the GitHub repository
-- Service-specific inquiry buttons
-- A client inquiry form that opens the visitor's email app **after an email address is configured**
-- WhatsApp contact button **after a number is configured**
-- If no email is configured, the inquiry form copies the inquiry or downloads a text file; it does **not** send anything
-- Accessible navigation and reduced-motion support
+## Configure before launch
+Edit `site-config.js` with your public contact email and WhatsApp number (international digits, without +). Keep secrets and private API keys OUT of this file and GitHub; anything in client JavaScript can be read by visitors.
 
-## Before publishing (essential)
+## Deploy from GitHub on Netlify
+1. Upload **all seven files**, not the ZIP or enclosing folder, to the root of your GitHub `tims-website` repository. This version replaces the six original files and adds `thank-you.html`.
+2. Go to https://app.netlify.com and choose **Add new project → Import a Git repository**.
+3. Authorize GitHub and select `tims-website`. Use `main` branch, blank base/build, and `.` as publish directory if asked.
+4. Deploy/Publish. Netlify assigns a `.netlify.app` URL.
+5. In the Netlify site dashboard, open **Forms** and ensure **Form detection** is enabled. If you enable it after deployment, redeploy your site.
+6. On the **live** website, send a test inquiry using fictional data. After submit you should see the `thank-you.html` page.
+7. In Netlify dashboard → **Forms** → **tims-inquiry**, verify that the submission appears. You can download submissions as CSV. Set email notifications under Forms → Submission notifications if desired.
 
-Open `site-config.js` and set your real contact details:
-
-```js
-window.TIMS_CONFIG = {
-  contactEmail: 'your-real-email@example.com',
-  whatsappNumber: '2547XXXXXXXX',
-  businessName: 'TIMS'
-};
-```
-
-These values above are **examples only**. The shipped config intentionally leaves them blank. Do not publish without adding at least one real contact channel. A working mailto link requires the visitor to have an email app configured; for server-side submissions, use a trusted form service instead.
-
-AI-agent services are described as discovery and prototyping, not as an already shipped autonomous product. Check the services, descriptions, and prices. The included prices are **test offers**, not market-verified prices. Verify the InvoiceFlow GitHub URL, and add your own completed projects and truthful testimonials when available.
-
-## Run locally
-
-Simply double-click `index.html` in Chrome or another browser. Or start a local server:
-
-```bash
-python -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
-
-## Publish (GitHub + Vercel)
-
-1. Create a new GitHub repository named `tims-site`.
-2. Upload the contents of this folder (not the enclosing ZIP file).
-3. Sign in to Vercel and choose **Add New → Project**.
-4. Import the repository.
-5. Deploy as a static site (no build command or framework needed).
-6. Add a custom domain whenever you're ready.
-7. Send the site URL directly to prospective clients; a live site alone doesn't guarantee traffic.
-
-Alternative hosting: GitHub Pages or Netlify can host the same static files.
-
-## Key safety / product notes
-
-- This website does not collect or store user form submissions on a server. Mailto prepares the email; the visitor must send it.
-- The visuals for InvoiceFlow are illustrative and do not imply real customers, results, or features beyond the stated prototype.
-- Do not publish private client data, sensitive invoices, or financial information in static site files.
-- The StudyUSAHelp service description is independent educational guidance; do not imply institutional affiliation or an admissions guarantee.
-- Mental-health literacy is strictly educational and is not psychotherapy, counselling, diagnosis, treatment, or crisis assistance. Avoid soliciting, storing, or responding to sensitive health information through this static website. If clinical services are ever offered, first verify professional registration, licensing, safeguarding, insurance, and applicable laws.
-- Neuroscience and cognitive science descriptions concern educational and workplace methods; do not imply medical practice, brain testing, or guarantees of outcomes.
-- Consulting offers are proposed capabilities, not claims of client case studies or demonstrated results. Add evidence and client testimonials only when genuine.
-
-## Easiest updates
-
-- **Brand name/text/sections:** `index.html`
-- **Colors/layout/mobile appearance:** `styles.css`
-- **Contact email/WhatsApp:** `site-config.js`
-- **Navigation and form behavior:** `script.js`
-- **Logo icon:** `favicon.svg`
-
-For a more fully automated inquiry flow, add a verified hosted form backend later. The current form never falsely says a message was sent.
+## Important distinctions
+- Opening `index.html` on your computer can preview its design, but cannot test form submission: Netlify handles form submissions **only on the deployed site**.
+- Netlify Forms can store project inquiries without your own database. It does **not** automatically create a custom CRM, a login system, or database tables for InvoiceFlow.
+- On current Netlify credit-based Free accounts, form submissions are free; hosting/deploying and other usage consume credits. Check live plan terms.
+- Do not request sensitive health records, financial records, passwords, or ID documents with this general-purpose inquiry form. Review appropriate privacy notices and data protection obligations before public commercial use.
+- The mental-health section is educational only; there is no clinical service, diagnosis or treatment.
+- The InvoiceFlow project linked from the website is a prototype. No client outcomes are implied.

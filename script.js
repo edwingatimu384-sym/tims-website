@@ -25,33 +25,4 @@
   document.querySelectorAll('.service-inquire').forEach(button => {
     button.addEventListener('click', () => { select.value = button.dataset.service; document.getElementById('contact').scrollIntoView({behavior:'smooth'}); window.setTimeout(() => document.getElementById('customer-name').focus({preventScroll:true}),550); });
   });
-  const form = document.getElementById('inquiry-form');
-  const status = document.getElementById('inquiry-status');
-  const submit = document.getElementById('inquiry-submit');
-  if (!emailValid) submit.textContent = 'Copy my inquiry ↗';
-  function textForInquiry(data) {
-    return `Hello Tim,\n\nMy name is ${data.name}. I would like to discuss a project with TIMS.\n\nService: ${data.service}\n\nProject details:\n${data.details}\n\nYou can reach me at ${data.email}.\n\nThanks!`;
-  }
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    const data = Object.fromEntries(new FormData(form).entries());
-    const body = textForInquiry(data);
-    if (emailValid) {
-      const subject = encodeURIComponent('TIMS project inquiry — ' + data.service);
-      window.location.href = 'mailto:' + email + '?subject=' + subject + '&body=' + encodeURIComponent(body);
-      status.textContent = 'Your email app should open with the inquiry. Please send it from there.';
-    } else {
-      try {
-        if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
-        await navigator.clipboard.writeText(body);
-        status.textContent = 'Inquiry copied. Paste it into an email or message to TIMS. Website owner: add your contact email in site-config.js to enable direct inquiries.';
-      } catch (_) {
-        const blob = new Blob([body], {type:'text/plain'});
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a'); link.href = url; link.download = 'tims-inquiry.txt'; document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
-        status.textContent = 'Your inquiry was downloaded as a text file. Website owner: add your contact email in site-config.js to enable direct inquiries.';
-      }
-    }
-  });
 })();
