@@ -4,7 +4,7 @@
    The inquiry form sends submissions to Netlify Forms when deployed on Netlify.
 */
 window.TIMS_CONFIG = {
-  contactEmail: '',
-  whatsappNumber: '',
+  contactEmail: 'edwin.gatimu384@gmail.com',
+  whatsappNumber: '254759160747',
   businessName: 'TIMS'
 };
